@@ -1,0 +1,40 @@
+{% extends "blog/base.html" %}
+
+
+
+
+{% load static %}
+{% block title %}<title>One Man Show - Школа</title>{% endblock %}
+{% block content %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url({% static 'img/auditorium.jpg' %})">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Школа</h1>
+            <h2 class="subheading"></h2>
+            <span class="meta">Ораторського мистецтва Сергія Попова</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-preview">
+            <h2 class="post-title">
+              Це заготовка для сторінки школи
+            </h2>
+              <hr>
+            <h3 class="post-subtitle">
+              Сторінка на стадії розробки
+            </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
