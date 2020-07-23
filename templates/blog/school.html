@@ -16,6 +16,11 @@
             <h1>Школа</h1>
             <h2 class="subheading"></h2>
             <span class="meta">Ораторського мистецтва Сергія Попова</span>
+          <h1>
+              {% for message in messages %}
+                  {{ message }}
+              {% endfor %}
+          </h1>
           </div>
         </div>
       </div>
@@ -32,6 +37,27 @@
             <h3 class="post-subtitle">
               Сторінка на стадії розробки
             </h3>
+            {% for course in courses %}
+                <div class="post-preview">
+                    <h2 class="post-title">
+                      {{ course.title }}
+                    </h2>
+                    <h3 class="col-lg-12 col-md-10 mx-auto">
+                        <p>{{ course.description|linebreaks }}</p>
+                    </h3>
+                  <p class="post-meta">Дата початку: {{ course.start }}</p>
+                  <p class="post-meta">Дата закінчення {{ course.end }}</p>
+                </div>
+                <hr>
+                <hr>
+            {% endfor %}
+            <h6>
+            <form method="POST" class="post-form">{% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="save btn btn-default">Надіслати</button>
+            </form>
+            </h6>
+
         </div>
       </div>
     </div>

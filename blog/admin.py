@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, Course, Application
+
+admin.site.site_header = 'Адміністрування One Man Show'
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'author', 'publish', 'status')
@@ -11,3 +13,17 @@ class PostAdmin(admin.ModelAdmin):
     ordering = ['status', 'publish']
 
 admin.site.register(Post, PostAdmin)
+
+
+class CourseAdmin(admin.ModelAdmin):
+    list_display = ('title', 'start', 'end')
+
+admin.site.register(Course, CourseAdmin)
+
+
+class ApplicationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'course', 'email', 'phone', 'created')
+    list_filter = ('course', 'created')
+    date_hierarchy = 'created'
+
+admin.site.register(Application, ApplicationAdmin)

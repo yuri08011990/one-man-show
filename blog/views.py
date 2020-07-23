@@ -1,7 +1,11 @@
 from django.shortcuts import render, get_object_or_404
+from django.utils import timezone
+from django.shortcuts import redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
-from .models import Post
+from django.contrib import messages
+from .models import Post, Course, Application
+from .forms import AppicationForm, RawApplicationForm
 
 class PostListView(ListView):
     queryset = Post.objects.all()
@@ -33,9 +37,35 @@ def post_detail(request, post):
 # def index(request):
 #     return render(request, 'blog/index.html')
 
-
 def school(request):
-    return render(request, 'blog/school.html')
+    courses = Course.objects.all()
+    form = RawApplicationForm(request.GET)
+    if request.method == 'POST':
+        form = RawApplicationForm(request.POST or None)
+        if form.is_valid():
+            Application.objects.create(**form.cleaned_data)
+            messages.success(request, 'Заявку відправлено! \nОчікуйте дзвінка ;)')
+            return redirect('school')
+        elif Application.objects.filter(phone=phone, course=course).exists():
+            messages.info(request, 'Ви вже подавали заявку на цей курс.')
+            return redirect('school')
+        else:
+            form = RawApplicationForm()
+    context = {'form': form, 'courses': courses}
+    return render(request, 'blog/school.html', context)
+
+
+# def school(request):
+#     if request.method == "POST":
+#         form = AppicationForm(request.POST)
+#         if form.is_valid():
+#             application = form.save(commit=False)
+#             application.created = timezone.now()
+#             application.save()
+#             return redirect('post_list')
+#     else:
+#         form = AppicationForm()
+#     return render(request, 'blog/school.html', {'form': form})
 
 def about(request):
     return render(request, 'blog/about.html')
