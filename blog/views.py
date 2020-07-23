@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.contrib import messages
-from .models import Post, Course, Application
+from .models import Post, Course, Application, About
 from .forms import AppicationForm, RawApplicationForm
 
 class PostListView(ListView):
@@ -14,28 +14,10 @@ class PostListView(ListView):
     template_name = 'blog/index.html'
 
 
-# def post_list(request):
-#     posts = Post.objects.all()
-#     paginator = Paginator(posts, 3)  # 3 posts in each page
-#     page = request.GET.get('page')
-#     try:
-#         posts = paginator.page(page)
-#     except PageNotAnInteger:
-#         # If page is not an integer deliver the first page
-#         posts = paginator.page(1)
-#     except EmptyPage:
-#         # If page is out of range deliver last page of results
-#         posts = paginator.page(paginator.num_pages)
-#     return render(request, 'post/list.html', {'page': page, 'posts': posts})
-
-
 def post_detail(request, post):
     post = get_object_or_404(Post, slug=post)
     return render(request, 'post/detail.html', {'post': post})
 
-
-# def index(request):
-#     return render(request, 'blog/index.html')
 
 def school(request):
     courses = Course.objects.all()
@@ -55,17 +37,6 @@ def school(request):
     return render(request, 'blog/school.html', context)
 
 
-# def school(request):
-#     if request.method == "POST":
-#         form = AppicationForm(request.POST)
-#         if form.is_valid():
-#             application = form.save(commit=False)
-#             application.created = timezone.now()
-#             application.save()
-#             return redirect('post_list')
-#     else:
-#         form = AppicationForm()
-#     return render(request, 'blog/school.html', {'form': form})
-
 def about(request):
-    return render(request, 'blog/about.html')
+    descr = About.objects.all()
+    return render(request, 'blog/about.html', {'descr': descr})

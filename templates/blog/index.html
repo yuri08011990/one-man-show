@@ -29,7 +29,7 @@
                       <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
                     </h2>
                     <h3 class="post-subtitle">
-                      {{ post.body|truncatewords:10|linebreaks }}
+                      {{ post.body|truncatewords:10|safe }}
                     </h3>
                   </a>
                   <p class="post-meta">Опубліковано {{ post.publish }} автором {{ post.author }}</p>

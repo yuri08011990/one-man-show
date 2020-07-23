@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Post, Course, Application
+from django_summernote.admin import SummernoteModelAdmin
+from .models import Post, Course, Application, About
 
 admin.site.site_header = 'Адміністрування One Man Show'
 
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(SummernoteModelAdmin):
     list_display = ('title', 'slug', 'author', 'publish', 'status')
     list_filter = ('status', 'created', 'publish', 'author')
     search_fields = ('title', 'body')
@@ -11,14 +12,16 @@ class PostAdmin(admin.ModelAdmin):
     # raw_id_fields = ('author',)
     date_hierarchy = 'publish'
     ordering = ['status', 'publish']
+    summernote_fields = 'body'
 
-admin.site.register(Post, PostAdmin)
+admin.site.register(Post, SummernoteModelAdmin)
 
 
-class CourseAdmin(admin.ModelAdmin):
+class CourseAdmin(SummernoteModelAdmin):
     list_display = ('title', 'start', 'end')
+    summernote_fields = '__all__'
 
-admin.site.register(Course, CourseAdmin)
+admin.site.register(Course, SummernoteModelAdmin)
 
 
 class ApplicationAdmin(admin.ModelAdmin):
@@ -27,3 +30,9 @@ class ApplicationAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
 
 admin.site.register(Application, ApplicationAdmin)
+
+
+class AboutAdmin(SummernoteModelAdmin):
+    summernote_fields = '__all__'
+
+admin.site.register(About, AboutAdmin)

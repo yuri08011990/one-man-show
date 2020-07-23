@@ -16,13 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
+from django.conf import settings
+from django.conf.urls.static import static
 from blog import views
 
 urlpatterns = [
     # path('', views.index, name='index'),
     url(r'^$', views.PostListView.as_view(), name='post_list'),
     path('admin/', admin.site.urls),
+    path('summernote/', include('django_summernote.urls')),
     path('blog/', include('blog.urls')),
     path('school/', views.school, name='school'),
     path('about/', views.about, name='about'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
