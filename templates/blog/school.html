@@ -40,11 +40,13 @@
                 </div>
                 <hr>
                 <hr>
+                <br>
+                <br>
             {% endfor %}
             <h6>
             <form method="POST" class="post-form">{% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="save btn btn-default">Надіслати</button>
+                <button type="submit" class="save btn btn-default">Подати заявку</button>
             </form>
             </h6>
         </div>
