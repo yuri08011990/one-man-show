@@ -31,8 +31,8 @@ def school(request):
         elif Application.objects.filter(phone=phone, course=course).exists():
             messages.info(request, 'Ви вже подавали заявку на цей курс.')
             return redirect('school')
-        else:
-            form = RawApplicationForm()
+    else:
+        form = RawApplicationForm()
     context = {'form': form, 'courses': courses}
     return render(request, 'blog/school.html', context)
 
